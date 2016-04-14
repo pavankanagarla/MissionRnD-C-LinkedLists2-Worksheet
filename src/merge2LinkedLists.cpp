@@ -19,17 +19,35 @@ struct node {
 };
 
 struct node * merge2LinkedLists(struct node *head1, struct node *head2) {
-	/*struct node *starting_point1 = head1;
-	struct node *starting_point2 = head2;
-	struct node *temp;
-	if (head1 == NULL || head2 == NULL)
-		return NULL;
-	while (head1 != NULL){
-		temp = head1;
-		head1-
-		if (head1->num)
-
-		
-	}*/
-	return NULL;
+	struct node *result_head;
+	struct node *result_end;
+	if (head1 == NULL)
+		return head2;
+	if (head2 == NULL)
+		return head1;
+	if (head1->num < head2->num){
+		result_head = result_end = head1;
+		head1 = head1->next;
+	}
+	else{
+		result_head = result_end = head2;
+		head2 = head2->next;
+	}
+	while (head1 != NULL && head2 != NULL){
+		if (head1->num < head2->num){
+			result_end->next = head1;
+			result_end = result_end->next;
+			head1 = head1->next;
+		}
+		else{
+			result_end->next = head2;
+			result_end = result_end->next;
+			head2 = head2->next;
+		}
+	}
+	if (head1 != NULL)
+		result_end->next = head1;
+	if (head2 != NULL)
+		result_end->next = head2;
+	return result_head;
 }
